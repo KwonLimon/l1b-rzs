@@ -24,6 +24,14 @@ public class InMemoryMovieRepository implements MovieRepository {
     }
 
     @Override
+    public List<Movie> findByGenre(String genre) {
+        return storage.values().stream()
+                .filter(movie -> genre.equalsIgnoreCase(movie.getGenre()))
+                .sorted(Comparator.comparing(Movie::getId))
+                .toList();
+    }
+
+    @Override
     public Optional<Movie> findById(Long id) {
         return Optional.ofNullable(storage.get(id));
     }
@@ -35,5 +43,10 @@ public class InMemoryMovieRepository implements MovieRepository {
         }
         storage.put(movie.getId(), movie);
         return movie;
+    }
+
+    @Override
+    public boolean deleteById(Long id) {
+        return storage.remove(id) != null;
     }
 }

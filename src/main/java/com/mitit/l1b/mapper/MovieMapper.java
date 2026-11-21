@@ -2,8 +2,10 @@ package com.mitit.l1b.mapper;
 
 import com.mitit.l1b.dto.MovieCardDto;
 import com.mitit.l1b.dto.MovieDetailDto;
+import com.mitit.l1b.dto.MovieRequest;
 import com.mitit.l1b.entity.Movie;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -15,4 +17,7 @@ public interface MovieMapper {
     List<MovieCardDto> toCards(List<Movie> movies);
 
     MovieDetailDto toDetail(Movie movie);
+
+    @Mapping(target = "id", ignore = true)
+    Movie toEntity(MovieRequest request);
 }
